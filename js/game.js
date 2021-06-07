@@ -86,13 +86,14 @@ function action(action) {
             recharge('b');            
         }
         if (actionPlayerB == 'shoot') {
+            setMessage('a', 'Blocked 😎');
             if (hasDragonBall('b')) {
                 shootDragonBall('b');
+                return;
             }
             if (canShoot('b')) {
                 shoot('b');                
             }
-            setMessage('a', 'Blocked 😎');
         }
     }
 
@@ -113,13 +114,14 @@ function action(action) {
             losesRecharges('b');
         }
         if (actionPlayerB == 'block') {
+            setMessage('b', 'Blocked 😎');
             if (hasDragonBall('a')) {
-                shootDragonBall('a');                
+                shootDragonBall('a');
+                return;
             }
             if (canShoot('a')) {
                 shoot('a');
             }
-            setMessage('b', 'Blocked 😎');
         }
         if (actionPlayerB == 'shoot') {
             losesRecharges('a');
