@@ -80,9 +80,9 @@ function action(action) {
         }
         if (actionPlayerB == 'shoot') {
             if (canShoot('b')) {
-                shoot('b');
-                setMessage('a', 'Blocked 😎');
+                shoot('b');                
             }
+            setMessage('a', 'Blocked 😎');
         }
     }
 
@@ -110,8 +110,8 @@ function action(action) {
         if (actionPlayerB == 'block') {
             if (canShoot('a')) {
                 shoot('a');
-                setMessage('b', 'Blocked 😎');
             }
+            setMessage('b', 'Blocked 😎');
         }
         if (actionPlayerB == 'shoot') {
             if (hasRecharges('a')) {
