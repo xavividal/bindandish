@@ -67,22 +67,17 @@ function action(action) {
         if (actionPlayerB == 'shoot') {
             if (!canShoot('b')) {
                 recharge('a');
-                setMessage('b', 'Cannot shoot 😤');
                 return;
             }
+            if (hasDragonBall('b')) {
+                shootDragonBall('b');
+                losesRecharges('a');  
+                lifeLost('a');                 
+                return;                          
+            }
+
             shoot('b');
-            if (hasRecharges('a')) {
-                losesRecharges('a');
-                return;
-            }
-            if (canLoseLife('a')) {
-                lifeLost('a');
-                if (!enoughLifesToKeepPlaying('a')) {
-                    alert('You lost the game');
-                    initGame();
-                    return;
-                }            
-            }
+            losesRecharges('a');
         }
     }
 
@@ -102,22 +97,17 @@ function action(action) {
         if (actionPlayerB == 'recharge') {
             if (!canShoot('a')) {
                 recharge('b');
-                setMessage('a', 'Cannot shoot 😤');
                 return;
             }
+            if (hasDragonBall('a')) {
+                shootDragonBall('a');
+                losesRecharges('b');  
+                lifeLost('b');                 
+                return;                          
+            }
+
             shoot('a');
-            if (hasRecharges('b')) {
-                losesRecharges('b');
-                return;
-            }               
-            if (canLoseLife('b')) {
-                lifeLost('b');
-                if (!enoughLifesToKeepPlaying('b')) {
-                    alert('I lost the game');
-                    initGame();
-                    return;
-                }                
-            }
+            losesRecharges('b');
         }
         if (actionPlayerB == 'block') {
             if (canShoot('a')) {
@@ -126,12 +116,8 @@ function action(action) {
             setMessage('b', 'Blocked 😎');
         }
         if (actionPlayerB == 'shoot') {
-            if (hasRecharges('a')) {
-                losesRecharges('a');
-            }
-            if (hasRecharges('b')) {
-                losesRecharges('b');
-            }            
+            losesRecharges('a');
+            losesRecharges('b');
         }
     }
 }
@@ -148,6 +134,11 @@ function hasDragonBall(player) {
     return getRecharges(player) > 4;
 }
 
+function shootDragonBall(player) {
+    losesRecharges(player);
+    setMessage(player, 'Dragon Ball ☄️');
+}
+
 function enoughLifesToKeepPlaying(player) {
     return getLifes(player) > 0;
 }
@@ -159,6 +150,10 @@ function canLoseLife(player) {
 function lifeLost(player) {
     setLifes(player, getLifes(player) - 1);
     setMessage(player, 'Life lost ☠️');
+    if (!enoughLifesToKeepPlaying(player)) {
+        alert('Player ' + player + ' lost the battle');
+        initGame();
+    }    
 }
 
 function hasRecharges(player) {
@@ -170,18 +165,30 @@ function recharge(player) {
     setMessage(player, 'Recharged 😛');
 }
 
+function spendRecharges(player) {
+    setRecharges(player, getRecharges(player) - 2);
+    setMessage(player, 'Recharges spent');
+}
+
 function losesRecharges(player) {
-    setRecharges(player, 0);
-    setMessage(player, 'Recharges lost 😔');
+    if (hasRecharges(player)) {
+        setRecharges(player, 0);
+        setMessage(player, 'Recharges lost 😔');
+        return;
+    }
 }
 
 function shoot(player) {
-    setRecharges(player, getRecharges(player) - 2);
+    spendRecharges(player);
     setMessage(player, 'Shoot 🤠');
 }
 
-function canShoot(player) {
-    return getRecharges(player) >= 2;
+function canShoot(player) {    
+    let result = getRecharges(player) >= 2;
+    if (result == false) {
+        setMessage(player, 'Cannot shoot 😤');
+    }
+    return result;
 }
 
 function getLifes(player) {
