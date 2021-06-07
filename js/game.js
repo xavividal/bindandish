@@ -38,6 +38,18 @@ function action(action) {
     let actionPlayerA = action;
     let actionPlayerB = availableActions[getRandomInt(3)];
 
+    if (actionPlayerB == 'shoot' && !canShoot('b')) {
+        actionPlayerB = getRandomInt(2) == 0 ? 'block' : 'recharge';
+    }
+
+    if (actionPlayerB == 'block' && !canShoot('a')) {
+        actionPlayerB = getRandomInt(2) == 0 ? 'shoot' : 'recharge';
+
+        if (actionPlayerB == 'shoot' && !canShoot('b')) {
+            actionPlayerB = 'recharge';
+        }
+    }
+
     $('#player_a_action').val(actionPlayerA);
     $('#player_b_action').val(actionPlayerB);
 
