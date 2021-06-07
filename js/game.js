@@ -86,6 +86,9 @@ function action(action) {
             recharge('b');            
         }
         if (actionPlayerB == 'shoot') {
+            if (hasDragonBall('b')) {
+                shootDragonBall('b');
+            }
             if (canShoot('b')) {
                 shoot('b');                
             }
@@ -110,6 +113,9 @@ function action(action) {
             losesRecharges('b');
         }
         if (actionPlayerB == 'block') {
+            if (hasDragonBall('a')) {
+                shootDragonBall('a');                
+            }
             if (canShoot('a')) {
                 shoot('a');
             }
