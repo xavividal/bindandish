@@ -9,6 +9,8 @@ let language = 'ca';
 
 let messages = {
     'en': {
+        'PLAYER': 'Player (A)',
+        'COMPUTER': 'Computer (B)',
         'RECHARGE': 'Recharge',
         'BLOCK': 'Block',
         'SHOOT': 'Shoot',
@@ -30,6 +32,8 @@ let messages = {
         'CAN_SHOOT': 'Shoot 🤠',
     },
     'ca': {
+        'PLAYER': 'Jugador (A)',
+        'COMPUTER': 'Ordinador (B)',
         'RECHARGE': 'Recarrega',
         'BLOCK': 'Bloqueja',
         'SHOOT': 'Dispara',        
@@ -69,6 +73,8 @@ function initLabels() {
     $('#label_recharges').html(translate('LABEL_RECHARGES'));
     $('#label_action').html(translate('LABEL_ACTION'));
     $('#label_message').html(translate('LABEL_MESSAGE'));
+    $('#label_player').html(translate('PLAYER'));
+    $('#label_computer').html(translate('COMPUTER'));
 }
 
 function initGame() {
