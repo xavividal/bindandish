@@ -1,9 +1,75 @@
 $(function() {
     initGame();
+    initButtons();
+    initLabels();
     declareActions();
 });
 
+let language = 'ca';
+
+let messages = {
+    'en': {
+        'RECHARGE': 'Recharge',
+        'BLOCK': 'Block',
+        'SHOOT': 'Shoot',
+        'LABEL_LIFES': 'Lifes',
+        'LABEL_RECHARGES': 'Recharges',
+        'LABEL_ACTION': 'Action',
+        'LABEL_MESSAGE': 'Message',
+        'ACTION_RECHARGE': 'Recharge',
+        'ACTION_BLOCK': 'Block',
+        'ACTION_SHOOT': 'Shoot',
+        'BLOCKED': 'Blocked 😎',
+        'DRAGONBALL': 'Dragon Ball ☄️',  
+        'LIFELOST': 'Life lost ☠️',
+        'RECHARGED': 'Recharged 😛',
+        'RECHARGES_SPENT': 'Recharges spent',
+        'RECHARGES_LOST': 'Recharges lost 😔',
+        'PLAYER_LOST_GAME': 'Game has been lost for player',
+        'CANNOT_SHOOT': 'Cannot shoot 😤',
+        'SHOOT': 'Shoot 🤠',
+    },
+    'ca': {
+        'RECHARGE': 'Recarrega',
+        'BLOCK': 'Bloqueja',
+        'SHOOT': 'Dispara',        
+        'LABEL_LIFES': 'Vides',
+        'LABEL_RECHARGES': 'Recarregues',
+        'LABEL_ACTION': 'Accio',
+        'LABEL_MESSAGE': 'Missatge',        
+        'ACTION_RECHARGE': 'Recarrega',
+        'ACTION_BLOCK': 'Bloqueja',
+        'ACTION_SHOOT': 'Dispara',        
+        'BLOCKED': 'Bloquejat 😎',
+        'DRAGONBALL': 'Bola de Drac ☄️',  
+        'LIFELOST': 'Vida perduda ☠️',
+        'RECHARGED': 'Recarregat 😛',
+        'RECHARGES_SPENT': 'Recarregues gastades',
+        'RECHARGES_LOST': 'Recarregues perdudes 😔',
+        'PLAYER_LOST_GAME': 'La partida ha estat perduda pel jugador',
+        'CANNOT_SHOOT': 'No pot disparar 😤',
+        'SHOOT': 'Dispara 🤠',        
+    },
+};
+
 let availableActions = ['recharge', 'shoot', 'block'];
+
+function translate(key) {
+    return messages[language][key];
+}
+
+function initButtons() {
+    $('#action_recharge').html(translate('ACTION_RECHARGE'));
+    $('#action_block').html(translate('ACTION_BLOCK'));
+    $('#action_shoot').html(translate('ACTION_SHOOT'));
+}
+
+function initLabels() {
+    $('#label_lifes').html(translate('LABEL_LIFES'));
+    $('#label_recharges').html(translate('LABEL_RECHARGES'));
+    $('#label_action').html(translate('LABEL_ACTION'));
+    $('#label_message').html(translate('LABEL_MESSAGE'));
+}
 
 function initGame() {
     $('#player_a_lifes').val(3);
@@ -50,8 +116,8 @@ function action(action) {
         }
     }
 
-    $('#player_a_action').val(actionPlayerA);
-    $('#player_b_action').val(actionPlayerB);
+    $('#player_a_action').val(translate(actionPlayerA.toUpperCase()));
+    $('#player_b_action').val(translate(actionPlayerB.toUpperCase()));
 
     clearMessage('a');
     clearMessage('b');
@@ -86,7 +152,7 @@ function action(action) {
             recharge('b');            
         }
         if (actionPlayerB == 'shoot') {
-            setMessage('a', 'Blocked 😎');
+            setMessage('a', translate('BLOCKED'));
             if (hasDragonBall('b')) {
                 shootDragonBall('b');
                 return;
@@ -114,7 +180,7 @@ function action(action) {
             losesRecharges('b');
         }
         if (actionPlayerB == 'block') {
-            setMessage('b', 'Blocked 😎');
+            setMessage('b', translate('BLOCKED'));
             if (hasDragonBall('a')) {
                 shootDragonBall('a');
                 return;
@@ -144,7 +210,7 @@ function hasDragonBall(player) {
 
 function shootDragonBall(player) {
     losesRecharges(player);
-    setMessage(player, 'Dragon Ball ☄️');
+    setMessage(player, translate('DRAGONBALL'));
 }
 
 function enoughLifesToKeepPlaying(player) {
@@ -157,9 +223,9 @@ function canLoseLife(player) {
 
 function lifeLost(player) {
     setLifes(player, getLifes(player) - 1);
-    setMessage(player, 'Life lost ☠️');
+    setMessage(player, translate('LIFELOST'));
     if (!enoughLifesToKeepPlaying(player)) {
-        alert('Player ' + player + ' lost the battle');
+        alert(translate('PLAYER_LOST_GAME')+' '+player);
         initGame();
     }    
 }
@@ -170,31 +236,31 @@ function hasRecharges(player) {
 
 function recharge(player) {
     setRecharges(player, getRecharges(player) + 1);
-    setMessage(player, 'Recharged 😛');
+    setMessage(player, translate('RECHARGED'));
 }
 
 function spendRecharges(player) {
     setRecharges(player, getRecharges(player) - 2);
-    setMessage(player, 'Recharges spent');
+    setMessage(player, translate('RECHARGES_SPENT'));
 }
 
 function losesRecharges(player) {
     if (hasRecharges(player)) {
         setRecharges(player, 0);
-        setMessage(player, 'Recharges lost 😔');
+        setMessage(player, translate('RECHARGES_LOST'));
         return;
     }
 }
 
 function shoot(player) {
     spendRecharges(player);
-    setMessage(player, 'Shoot 🤠');
+    setMessage(player, translate('SHOOT'));
 }
 
 function canShoot(player) {    
     let result = getRecharges(player) >= 2;
     if (result == false) {
-        setMessage(player, 'Cannot shoot 😤');
+        setMessage(player, translate('CANNOT_SHOOT'));
     }
     return result;
 }

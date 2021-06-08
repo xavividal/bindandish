@@ -15,30 +15,30 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Player A</th>
-                    <th>Item</th>
-                    <th>Player B</th>
+                    <th>A</th>
+                    <th></th>
+                    <th>B</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td><input type="text" disabled id="player_a_lifes" value="3"></td>
-                    <td>Lifes</td>
+                    <td><span id="label_lifes">Lifes</span></td>
                     <td><input type="text" disabled id="player_b_lifes" value="3"></td>
                 </tr>
                 <tr>
                     <td><input type="text" disabled id="player_a_recharges" value="0"></td>
-                    <td>Recharges</td>
+                    <td><span id="label_recharges">Recharges</span></td>
                     <td><input type="text" disabled id="player_b_recharges" value="0"></td>
                 </tr>                  
                 <tr>
                     <td><input type="text" disabled id="player_a_action" value=""></td>
-                    <td>Action</td>
+                    <td><span id="label_action">Action</span></td>
                     <td><input type="text" disabled id="player_b_action" value=""></td>
                 </tr>  
                 <tr>
                     <td><input disabled type="text" id="player_a_message" value=""></td>
-                    <td>Message</td>
+                    <td><span id="label_message">Message</span></td>                    
                     <td><input disabled type="text" id="player_b_message" value=""></td>
                 </tr>
             </tbody>
@@ -49,21 +49,6 @@
             <button type="button" class="btn btn-success btn-sm" id="action_recharge">Recharge</button>
             <button type="button" class="btn btn-warning btn-sm" id="action_block">Block</button>
             <button type="button" class="btn btn-danger btn-sm" id="action_shoot">Shoot</button>
-        </div>
-
-        <div class="row" style="margin-top:20px">
-            <div class="col">
-                <h4>Instructions</h4>
-                <ul>
-                    <li>Shooting is allowed if you have two or more recharges</li>
-                    <li>Shooting spends two recharges</li>
-                    <li>With five or more recharges you can shoot a Dragon Ball</li>
-                    <li>You can block any attack</li>
-                    <li>If you get shooted while recharging, all recharges will lost</li>
-                    <li>If you get shooted and you have no recharges, you loses a life</li>
-                    <li>If you get shooted with a Dragon Ball, you loses the recharges and a life</li>
-                </ul>
-            </div>
         </div>
     </div>
     <script src="./vendor/bootstrap/js/bootstrap.min.js"></script>
