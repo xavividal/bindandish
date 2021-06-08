@@ -149,6 +149,10 @@ function action(action) {
             }
 
             shoot('b');
+            if (!hasRecharges('a')) {
+                lifeLost('a');
+                return;
+            }
             losesRecharges('a');
         }
     }
@@ -183,6 +187,10 @@ function action(action) {
             }
 
             shoot('a');
+            if (!hasRecharges('b')) {
+                lifeLost('b');
+                return;
+            }
             losesRecharges('b');
         }
         if (actionPlayerB == 'block') {
