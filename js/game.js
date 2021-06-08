@@ -27,7 +27,7 @@ let messages = {
         'RECHARGES_LOST': 'Recharges lost 😔',
         'PLAYER_LOST_GAME': 'Game has been lost for player',
         'CANNOT_SHOOT': 'Cannot shoot 😤',
-        'SHOOT': 'Shoot 🤠',
+        'CAN_SHOOT': 'Shoot 🤠',
     },
     'ca': {
         'RECHARGE': 'Recarrega',
@@ -48,7 +48,7 @@ let messages = {
         'RECHARGES_LOST': 'Recarregues perdudes 😔',
         'PLAYER_LOST_GAME': 'La partida ha estat perduda pel jugador',
         'CANNOT_SHOOT': 'No pot disparar 😤',
-        'SHOOT': 'Dispara 🤠',        
+        'CAN_SHOOT': 'Dispara 🤠',        
     },
 };
 
@@ -254,7 +254,7 @@ function losesRecharges(player) {
 
 function shoot(player) {
     spendRecharges(player);
-    setMessage(player, translate('SHOOT'));
+    setMessage(player, translate('CAN_SHOOT'));
 }
 
 function canShoot(player) {    
